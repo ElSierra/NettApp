@@ -24,13 +24,13 @@ export default function Home() {
         navigation.navigate("CreateOutlet");
         return;
       case "Completed Visits":
-        navigation.navigate("ViewOutlets");
+        navigation.navigate("CompletedVisits");
         return;
       case "Scheduled Visits":
-        navigation.navigate("ViewOutlets");
+        navigation.navigate("ScheduledVisits");
         return;
       case "View Products":
-        navigation.navigate("ViewOutlets");
+        navigation.navigate("ViewProducts");
         return;
       case "Competition Review":
         navigation.navigate("CompetitionReview");

@@ -1,10 +1,10 @@
-import { View, Text } from "react-native";
-import React from "react";
+import { View, Text, SafeAreaView } from "react-native";
+import Header from "../../components/header/Header";
 
 export default function ViewProducts() {
   return (
-    <View>
-      <Text>ViewProducts</Text>
-    </View>
+    <SafeAreaView className="flex-1 bg-white dark:bg-darkTheme">
+      <Header />
+    </SafeAreaView>
   );
 }

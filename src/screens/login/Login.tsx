@@ -5,6 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
+  Platform,
 } from "react-native";
 import { useState } from "react";
 import { TextInput, Divider } from "react-native-paper";
@@ -54,7 +55,7 @@ export default function Login() {
   return (
     <SafeAreaView className="flex-1 bg-white dark:bg-darkTheme">
       {/* LOGO */}
-      <View className="ml-2 mb-10">
+      <View className={`ml-2 mb-10 ${Platform.OS === "android" && "mt-10"}`}>
         <LogoSVG width={"50%"} height={80} />
         <Divider />
       </View>

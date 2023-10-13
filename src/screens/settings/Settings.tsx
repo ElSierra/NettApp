@@ -1,4 +1,11 @@
-import { View, Text, ScrollView, SafeAreaView, Switch } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  SafeAreaView,
+  Switch,
+  Platform,
+} from "react-native";
 import { COLORS } from "../../common/colors";
 import { useState } from "react";
 import { useTheme } from "../../context/theme/ThemeContext";
@@ -14,7 +21,10 @@ export default function Settings() {
 
   return (
     <SafeAreaView className="flex-1 bg-white dark:bg-darkTheme">
-      <ScrollView showsVerticalScrollIndicator={false} className="mx-3">
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        className={`mx-3 ${Platform.OS === "android" && "mt-12"}`}
+      >
         <Text className="text-3xl font-bold text-darkNeutral dark:text-lightText">
           Settings
         </Text>

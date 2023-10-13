@@ -13,6 +13,9 @@ import ViewOutlets from "../screens/outlets_view/ViewOutlets";
 import OutletDetails from "../screens/outlet_details/OutletDetails";
 import CreateOutlet from "../screens/create_outlet/CreateOutlet";
 import CompetitionReview from "../screens/competition_review/CompetitionReview";
+import CompletedVisits from "../screens/completed_visits/CompletedVisits";
+import ScheduledVisits from "../screens/scheduled_visits/ScheduledVisits";
+import ViewProducts from "../screens/products_view/ViewProducts";
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -110,6 +113,30 @@ export default function RootNavigator() {
       <RootStack.Screen
         name="CreateOutlet"
         component={CreateOutlet}
+        options={{
+          headerShown: false,
+          headerTitleAlign: "center",
+        }}
+      />
+      <RootStack.Screen
+        name="ScheduledVisits"
+        component={ScheduledVisits}
+        options={{
+          headerShown: false,
+          headerTitleAlign: "center",
+        }}
+      />
+      <RootStack.Screen
+        name="CompletedVisits"
+        component={CompletedVisits}
+        options={{
+          headerShown: false,
+          headerTitleAlign: "center",
+        }}
+      />
+      <RootStack.Screen
+        name="ViewProducts"
+        component={ViewProducts}
         options={{
           headerShown: false,
           headerTitleAlign: "center",

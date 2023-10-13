@@ -16,6 +16,9 @@ export type RootStackParamList = {
   };
   CreateOutlet: undefined;
   CompetitionReview: undefined;
+  CompletedVisits: undefined;
+  ScheduledVisits: undefined;
+  ViewProducts: undefined;
 };
 
 export type TabStackParamList = {

@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import { TextInput, Divider } from "react-native-paper";
 import LogoSVG from "../../assets/images/logo.svg";
@@ -23,7 +24,7 @@ export default function ForgotPassword() {
 
   return (
     <SafeAreaView className="flex-1 bg-white dark:bg-darkTheme">
-      <View className="ml-2 mb-10">
+      <View className={`ml-2 mb-10 ${Platform.OS === "android" && "mt-12"}`}>
         <LogoSVG width={"50%"} height={80} />
         <Divider />
       </View>

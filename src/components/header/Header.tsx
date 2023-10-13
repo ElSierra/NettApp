@@ -1,4 +1,10 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  SafeAreaView,
+  Platform,
+} from "react-native";
 import LogoSVG from "../../assets/images/logo.svg";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Divider } from "react-native-paper";
@@ -13,7 +19,11 @@ export default function Header() {
 
   return (
     <View className="ml-2 mb-6">
-      <View className="flex-row justify-between items-center w-full">
+      <View
+        className={`flex-row justify-between items-center w-full ${
+          Platform.OS === "android" && "mt-10"
+        }`}
+      >
         <LogoSVG width={"50%"} height={70} />
 
         <TouchableOpacity onPress={() => navigation.navigate("Login")}>
