@@ -6,10 +6,8 @@ import {
   TextInput,
   TouchableOpacity,
   Pressable,
-  Platform,
 } from "react-native";
-import { ChangeEvent, useState } from "react";
-
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { CompetitonReview } from "../../types/general";
 import Header from "../../components/header/Header";
@@ -17,9 +15,10 @@ import { COLORS } from "../../common/colors";
 import { MaterialIcons } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useTheme } from "../../context/theme/ThemeContext";
+import CustomButton from "../../common/button";
 
 export default function CompetitionReview() {
-  const [checked, setChecked] = useState<boolean>(false);
+  const [checked, setChecked] = useState<boolean>(true);
   const [date, setDate] = useState(new Date());
   const [activationDate, setActivationDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -36,17 +35,16 @@ export default function CompetitionReview() {
   }
 
   function onDateChange(e: any, selectedDate: any) {
-    if (e.type === "set") {
-      const currentDate = selectedDate;
-      setDate(currentDate);
-
-      if (Platform.OS === "android") {
-        setShowDatePicker(!showDatePicker);
-        setActivationDate(currentDate.toDateString);
-      }
-    } else {
-      setShowDatePicker(!showDatePicker);
-    }
+    // if (e.type === "set") {
+    //   const currentDate = selectedDate;
+    //   setDate(currentDate);
+    //   if (Platform.OS === "android") {
+    //     setShowDatePicker(!showDatePicker);
+    //     setActivationDate(currentDate.toDateString);
+    //   }
+    // } else {
+    //   setShowDatePicker(!showDatePicker);
+    // }
   }
 
   return (
@@ -116,7 +114,7 @@ export default function CompetitionReview() {
                   onChangeText={onChange}
                   value={value}
                   multiline
-                  className="border border-[#CCCCCC] dark:border-authDark h-24 rounded-lg text-darkNeutral dark:text-lightText  pl-3  text-base"
+                  className="border border-[#CCCCCC] dark:border-authDark h-24 rounded-lg text-darkNeutral dark:text-lightText  pl-3 text-base"
                 />
               </View>
             )}
@@ -237,6 +235,42 @@ export default function CompetitionReview() {
                 }}
               />
             )}
+
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <View>
+                  <View className="flex-row justify-start items-center gap-1 mt-6 mb-2">
+                    <Text className="text-[17px] text-darkNeutral dark:text-lightText">
+                      Any other information?
+                    </Text>
+                    <Text className="text-red-600 text-base">*</Text>
+                  </View>
+                  <TextInput
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    multiline
+                    className="border border-[#CCCCCC] dark:border-authDark h-24 rounded-lg text-darkNeutral dark:text-lightText  pl-3  text-base"
+                  />
+                </View>
+              )}
+              name="otherInfo"
+            />
+            {errors.activation && (
+              <Text className="text-red-600 mt-1">This field is required.</Text>
+            )}
+
+            <CustomButton
+              variant="large"
+              clickHandler={handleSubmit(onSubmit)}
+              classnames="mt-10"
+            >
+              Save
+            </CustomButton>
           </View>
         </View>
       </ScrollView>

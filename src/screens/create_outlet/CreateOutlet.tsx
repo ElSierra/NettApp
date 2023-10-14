@@ -38,7 +38,7 @@ export default function CreateOutlet() {
             <Text className="text-2xl text-secondary dark:text-secondaryLight text-center font-bold mb-1">
               Register Outlet
             </Text>
-            <View className="absolute bg-secondary border-2 w-48 border-secondary dark:border-secondaryLight top-8 left-[68px]" />
+            <View className="absolute bg-secondary dark:bg-secondaryLight border-2 w-48 border-secondary dark:border-secondaryLight top-8 left-[68px]" />
           </View>
 
           <View>
@@ -58,7 +58,7 @@ export default function CreateOutlet() {
             render={({ field: { onChange, onBlur, value } }) => (
               <View>
                 <View className="flex-row justify-start items-center gap-1 mt-5 mb-2">
-                  <Text className="text-[17px] text-darkNeutral dark:text-lightText ">
+                  <Text className="text-[17px] text-darkNeutral dark:text-lightText">
                     Outlet Name
                   </Text>
                   <Text className="text-red-600 text-base">*</Text>
@@ -389,7 +389,7 @@ export default function CreateOutlet() {
                   }
                   onChangeText={onChange}
                   value={value}
-                  className="border border-[#CCCCCC] dark:border-authDark dark:border-authDark h-11 rounded-lg pl-3 text-base text-darkNeutral dark:text-lightText mt-2"
+                  className="border border-[#CCCCCC]  dark:border-authDark h-11 rounded-lg pl-3 text-base text-darkNeutral dark:text-lightText mt-2"
                 />
               </View>
             )}
@@ -401,7 +401,7 @@ export default function CreateOutlet() {
 
           <CustomButton
             variant="large"
-            clickHandler={handleSubmit(onSubmit)}
+            // clickHandler={handleSubmit(onSubmit)}
             classnames="mt-10"
           >
             Register

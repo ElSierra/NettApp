@@ -35,9 +35,7 @@ export default function ViewOutlets() {
               value={searchQuery}
               onChangeText={(val) => setSearchQuery(val)}
               placeholder="Search for Outlets..."
-              placeholderTextColor={
-                isDarkMode ? COLORS.authDark : COLORS.darkNeutral
-              }
+              placeholderTextColor={COLORS.authDark}
               className="text-[17px] h-full w-[80%] ml-3 text-darkNeutral dark:text-lightText"
             />
 

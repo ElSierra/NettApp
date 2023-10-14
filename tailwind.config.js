@@ -10,7 +10,7 @@ module.exports = {
         lightText: "#E5E5EA",
         lightBorder: "#404040",
         primaryLight: "#564e38",
-        secondaryLight: "3285fd5",
+        secondaryLight: "#2779bd",
         darkTheme: "#111111",
         dark: "#333",
         slate: "#8A939E",

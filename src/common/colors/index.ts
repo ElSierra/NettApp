@@ -1,6 +1,7 @@
 export const COLORS = {
   primary: "#806101",
   secondary: "#002C8B",
+  secondaryLight: "#2779bd",
   lightText: "#E5E5EA",
   lightBorder: "#404040",
   borderColor: "#CCCCCC",

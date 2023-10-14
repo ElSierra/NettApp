@@ -1,5 +1,4 @@
 import { View, Text, Dimensions, ScrollView } from "react-native";
-
 import { Outlet } from "../../types/outlets";
 import CustomButton from "../../common/button";
 import { Ionicons } from "@expo/vector-icons";

@@ -12,6 +12,7 @@ import { ActivityIndicator, View } from "react-native";
 import { AuthProvider } from "./src/context/auth/AuthContext";
 import CustomStatusBar from "./src/components/status_bar/CustomStatusBar";
 import { ThemeProvider } from "./src/context/theme/ThemeContext";
+import "react-native-gesture-handler";
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);

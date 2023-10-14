@@ -9,7 +9,7 @@ export default function CustomButton({
 }: ButtonProps) {
   const classNames =
     variant === "small"
-      ? `w-40 bg-secondary p-3 rounded-lg ${classnames}`
+      ? `w-36 bg-secondary p-3 rounded-lg ${classnames}`
       : `bg-secondary p-3 rounded-lg ${classnames}`;
 
   return (
@@ -17,7 +17,7 @@ export default function CustomButton({
       {variant === "small" ? (
         <TouchableOpacity
           onPress={clickHandler}
-          activeOpacity={0.4}
+          activeOpacity={0.7}
           className={classNames}
         >
           <Text className="text-white font-semibold text-center text-base">

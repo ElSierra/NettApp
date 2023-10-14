@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
-import { SafeAreaView, ScrollView } from "react-native";
+import { SafeAreaView } from "react-native";
 import Header from "../../components/header/Header";
 import { outletsData } from "../outlets_view/data";
 import { Outlet } from "../../types/outlets";

@@ -50,7 +50,7 @@ export default function ForgotPassword() {
                 <TextInput
                   value={email}
                   onChangeText={(val) => setEmail(val)}
-                  className="w-[100%] mt-2"
+                  className="w-[100%] mt-2" 
                   style={[
                     styles.input,
                     {
