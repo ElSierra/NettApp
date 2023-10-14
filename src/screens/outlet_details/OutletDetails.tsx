@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useRoute } from "@react-navigation/native";
 import { SafeAreaView } from "react-native";
 import Header from "../../components/header/Header";
-import { outletsData } from "../outlets_view/data";
 import { Outlet } from "../../types/outlets";
 import { COLORS } from "../../common/colors";
 import OutletInfo from "./OutletInfo";
 import TradeVisits from "./TradeVisits";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useTheme } from "../../context/theme/ThemeContext";
+import { getLocalData } from "../../helpers/local.data.handler";
+import { showLogs } from "../../helpers/logger";
 
 interface OutletParam {
   outletCode: string;
@@ -22,10 +23,15 @@ const OutletDetails = () => {
   const { isDarkMode } = useTheme();
 
   useEffect(() => {
-    const outlet = outletsData.find(
-      (outlet) => outlet.outletCode === outletCode
-    );
-    setCurrentOutlet(outlet);
+    const getLocalOutletData = async () => {
+      const outletData = await getLocalData("UserOutlets");
+      const filteredOutlet = outletData.find(
+        (data: Outlet) => data.outletCode === outletCode
+      );
+      setCurrentOutlet(filteredOutlet);
+    };
+
+    getLocalOutletData();
   }, [outletCode]);
 
   return (
@@ -36,7 +42,6 @@ const OutletDetails = () => {
         screenOptions={{
           tabBarActiveTintColor: isDarkMode ? COLORS.lightText : "#000",
           tabBarInactiveTintColor: isDarkMode ? COLORS.lightText : "#000",
-
           tabBarStyle: {
             backgroundColor: isDarkMode ? COLORS.darkTheme : "#fff",
           },

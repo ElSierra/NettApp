@@ -19,15 +19,14 @@ import {
 } from "@react-navigation/native";
 import { httpRequest } from "../../lib";
 import { useTheme } from "../../context/theme/ThemeContext";
-import { COLORS } from "../../common/colors";
-import Toast from "react-native-toast-message";
 import { useAlert } from "../../context/alert/AlertContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "../../context/auth/AuthContext";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(
+    "adijat_oladele@nubiaville.onmicrosoft.com"
+  );
+  const [password, setPassword] = useState("Deejah");
   const [loading, setLoading] = useState(false);
   const [hidePassword, setHidePassword] = useState(true);
   const navigation = useNavigation<NavigationProp<any>>();
@@ -150,8 +149,8 @@ export default function Login() {
               <View className="mt-10">
                 <CustomButton
                   variant="large"
-                  // clickHandler={loading ? () => {} : LoginUser}
-                  clickHandler={() => navigation.navigate("TabStack")}
+                  clickHandler={loading ? () => {} : LoginUser}
+                  // clickHandler={() => navigation.navigate("TabStack")}
                   classnames="flex items-center justify-center"
                 >
                   {loading ? (

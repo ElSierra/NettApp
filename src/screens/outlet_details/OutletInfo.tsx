@@ -4,6 +4,8 @@ import CustomButton from "../../common/button";
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../types/navigation";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { showLogs } from "../../helpers/logger";
 
 export default function OutletInfo({ outlet }: { outlet: Outlet | undefined }) {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -98,6 +100,11 @@ export default function OutletInfo({ outlet }: { outlet: Outlet | undefined }) {
           <CustomButton
             variant="small"
             clickHandler={() => navigation.goBack()}
+            // clickHandler={async () => {
+            //   await AsyncStorage.removeItem("UserOutlets");
+            //   const d = await AsyncStorage.getItem("UserOutlets");
+            //   showLogs("async data", d);
+            // }}
           >
             <View className="flex-row items-center">
               <Ionicons name="chevron-back-sharp" size={20} color="white" />
