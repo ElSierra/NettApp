@@ -9,9 +9,11 @@ import { AuthProvider } from "./src/context/auth/AuthContext";
 import CustomStatusBar from "./src/components/status_bar/CustomStatusBar";
 import { ThemeProvider } from "./src/context/theme/ThemeContext";
 import "react-native-gesture-handler";
-import Toast from "react-native-toast-message";
 import { AlertProvider } from "./src/context/alert/AlertContext";
 import Alert from "./src/components/alert/Alert";
+import { ModalProvider } from "./src/context/modal/ModalContext";
+import LogoutModal from "./src/components/modals/Modal";
+import ReusableModal from "./src/components/modals/ReusableModal";
 
 export default function App() {
   const theme = {
@@ -29,12 +31,15 @@ export default function App() {
         <ThemeProvider>
           <AlertProvider>
             <AuthProvider>
-              <NavigationContainer>
-                <RootNavigator />
-                <CustomStatusBar />
-                <Toast />
-                <Alert />
-              </NavigationContainer>
+              <ModalProvider>
+                <NavigationContainer>
+                  <RootNavigator />
+                  <CustomStatusBar />
+                  <Alert />
+                  <LogoutModal />
+                  <ReusableModal />
+                </NavigationContainer>
+              </ModalProvider>
             </AuthProvider>
           </AlertProvider>
         </ThemeProvider>

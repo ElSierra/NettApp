@@ -11,7 +11,7 @@ export function AlertProvider({ children }: AlertProviderProps) {
   const [showAlert, setShowAlert] = useState(false);
   const [alertType, setAlertType] = useState("");
   const [message, setMessage] = useState("");
-  const [delay, setDelay] = useState(4000);
+  const [delay, setDelay] = useState(0);
 
   function showAlertAndContent({ type, message, timeout }: AlertArgs) {
     setAlertType(type);

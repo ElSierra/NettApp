@@ -38,22 +38,8 @@ export default function ViewOutlets() {
 
   useEffect(() => {
     async function getUserOutlets() {
-      const userIsOnline = (await getUserNetworkStatus()).isInternetReachable;
       const localData = await getLocalData("UserOutlets");
-      if (userIsOnline && localData) {
-        setUserOutlets(localData);
-        showLogs("DATA IS FROM LOCAL DB", "");
-      } else {
-        const dbResponse = await httpRequest.post("/getAllOutlet", {
-          userCode: state.user,
-        });
-
-        setUserOutlets(dbResponse.data);
-        showLogs("DATA IS FROM API", "");
-        if (!localData) {
-          await saveDataLocally("UserOutlets", dbResponse.data);
-        }
-      }
+      setUserOutlets(localData);
     }
 
     getUserOutlets();
@@ -92,9 +78,15 @@ export default function ViewOutlets() {
             </View>
           </View>
 
-          <View>
+          <View className=" mt-6">
             {/* TABLE HEADER */}
-            <View className="bg-secondary flex-row items-center justify-between p-5 mt-6">
+            <Text className="text-darkNeutral dark:text-lightText mb-3 mx-3 text-base font-semibold">
+              Total Outlets:{" "}
+              <Text className="text-primary font-bold">
+                {userOutlets.length}
+              </Text>
+            </Text>
+            <View className="bg-secondary flex-row items-center justify-between p-5">
               <Text className="text-white text-base font-bold">
                 Outlet Names
               </Text>

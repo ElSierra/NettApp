@@ -9,6 +9,7 @@ import {
 import { COLORS } from "../../common/colors";
 import { useState } from "react";
 import { useTheme } from "../../context/theme/ThemeContext";
+import Header from "../../components/header/Header";
 
 export default function Settings() {
   const { isDarkMode, toggleTheme } = useTheme();
@@ -21,6 +22,7 @@ export default function Settings() {
 
   return (
     <SafeAreaView className="flex-1 bg-white dark:bg-darkTheme">
+      <Header />
       <ScrollView
         showsVerticalScrollIndicator={false}
         className={`mx-3 ${Platform.OS === "android" && "mt-12"}`}

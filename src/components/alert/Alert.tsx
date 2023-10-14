@@ -12,7 +12,7 @@ import { useTheme } from "../../context/theme/ThemeContext";
 import { BlurView } from "expo-blur";
 
 export default function Alert() {
-  const { alertType, message, showAlert, closeAlert } = useAlert();
+  const { alertType, message, showAlert, closeAlert, delay } = useAlert();
   const { isDarkMode } = useTheme();
   const insets = useSafeAreaInsets();
   const { width } = Dimensions.get("window");
@@ -43,11 +43,7 @@ export default function Alert() {
   return (
     <Portal>
       {showAlert && (
-        <TouchableWithoutFeedback
-          onPress={() => {
-            console.log("pressed");
-          }}
-        >
+        <TouchableWithoutFeedback onPress={closeAlert}>
           <Animated.View
             style={{
               height: 60 + insets.top,
@@ -62,7 +58,7 @@ export default function Alert() {
               alignItems: "center",
             }}
             entering={FadeInUp.springify().withCallback(callback)}
-            exiting={FadeOutUp.springify().delay(3000)}
+            exiting={FadeOutUp.springify().delay(delay)}
           >
             <BlurView
               tint={tint}

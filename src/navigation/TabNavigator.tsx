@@ -4,19 +4,21 @@ import {
 } from "@react-navigation/bottom-tabs";
 import { RoutePropArg, TabStackParamList } from "../types/navigation";
 import { Ionicons } from "@expo/vector-icons";
-import { Platform, StyleSheet } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import HomeScreen from "../screens/home/Home";
 import { COLORS } from "../common/colors";
 import Sync from "../screens/sync/Sync";
 import Settings from "../screens/settings/Settings";
 import { useAuth } from "../context/auth/AuthContext";
 import { useTheme } from "../context/theme/ThemeContext";
+import { useModal } from "../context/modal/ModalContext";
 
 const TabStack = createBottomTabNavigator<TabStackParamList>();
 
 export default function TabsNavigator() {
   const { currrRoute, setCurrRoute } = useAuth();
   const { isDarkMode } = useTheme();
+  const { showModalAndContent } = useModal();
 
   function screenOptions({ route }: RoutePropArg): BottomTabNavigationOptions {
     const colorToUse = isDarkMode ? COLORS.lightText : COLORS.darkNeutral;
@@ -39,7 +41,7 @@ export default function TabsNavigator() {
               <Ionicons
                 name="sync-outline"
                 size={size + 10}
-                color={focused ? COLORS.primary : colorToUse}
+                color={isDarkMode ? "white" : COLORS.dark}
                 style={styles.tabBarIcon}
               />
             );
@@ -64,7 +66,6 @@ export default function TabsNavigator() {
         : COLORS.darkNeutral,
       tabBarShowLabel: true,
       tabBarLabelStyle: styles.label,
-
       headerStyle: {
         backgroundColor: isDarkMode ? "rgba(31, 31, 31, 0.99)" : "#FFF",
       },
@@ -85,6 +86,14 @@ export default function TabsNavigator() {
       screenListeners={({ route }) => ({
         tabPress: () => {
           setCurrRoute(route.name);
+          if (route.name === "Sync") {
+            showModalAndContent({
+              title: "Sync Data",
+              message: "Do you want to Sync your Data?",
+              action: "SyncData",
+              actionBtnText: "Yes",
+            });
+          }
         },
       })}
     >
@@ -106,10 +115,9 @@ export default function TabsNavigator() {
 
       <TabStack.Screen
         name="Sync"
-        component={Sync}
+        component={HomeScreen}
         options={{
           headerShown: false,
-          headerTitleAlign: "center",
           tabBarItemStyle:
             currrRoute === "Sync"
               ? {
@@ -117,6 +125,12 @@ export default function TabsNavigator() {
                   borderColor: COLORS.primary,
                 }
               : {},
+          tabBarLabelStyle: [
+            styles.label,
+            {
+              color: isDarkMode ? COLORS.lightText : COLORS.dark,
+            },
+          ],
         }}
       />
 

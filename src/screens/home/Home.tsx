@@ -12,11 +12,43 @@ import { routes } from "./routes";
 import { generateIcon } from "../../helpers/generate.icon";
 import Header from "../../components/header/Header";
 import { useAuth } from "../../context/auth/AuthContext";
+import {
+  getLocalData,
+  saveDataLocally,
+} from "../../helpers/local.data.handler";
+import { useEffect, useState } from "react";
+import { Outlet } from "../../types/outlets";
+import { getUserNetworkStatus } from "../../helpers/get.network.status";
+import { showLogs } from "../../helpers/logger";
+import { httpRequest } from "../../lib";
 
 export default function Home() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { state } = useAuth();
-  console.log(state.user);
+  const [userOutlets, setUserOutlets] = useState<Outlet[]>([]);
+
+  useEffect(() => {
+    async function getUserOutlets() {
+      const userIsOnline = (await getUserNetworkStatus()).isInternetReachable;
+      const localData = await getLocalData("UserOutlets");
+      if (userIsOnline && localData) {
+        setUserOutlets(localData);
+        showLogs("DATA IS FROM LOCAL DB", "");
+      } else {
+        const dbResponse = await httpRequest.post("/getAllOutlet", {
+          userCode: state.user,
+        });
+
+        setUserOutlets(dbResponse.data);
+        showLogs("DATA IS FROM API", "");
+        if (!localData) {
+          await saveDataLocally("UserOutlets", dbResponse.data);
+        }
+      }
+    }
+
+    getUserOutlets();
+  }, []);
 
   async function handleNavigation(route: string) {
     switch (route) {
@@ -55,19 +87,21 @@ export default function Home() {
                 <Text className="text-white text-base">
                   Registered outlets:
                 </Text>
-                <Text className="text-white text-base">10</Text>
+                <Text className="text-white text-base">
+                  {userOutlets.length || "..."}
+                </Text>
               </View>
               <View className="flex-row justify-between items-center mb-3">
                 <Text className="text-white text-base">Scheduled visits:</Text>
-                <Text className="text-white text-base">8</Text>
+                <Text className="text-white text-base">0</Text>
               </View>
               <View className="flex-row justify-between items-center mb-3">
                 <Text className="text-white text-base">Completed visits:</Text>
-                <Text className="text-white text-base">5</Text>
+                <Text className="text-white text-base">0</Text>
               </View>
               <View className="flex-row justify-between items-center mb-3">
                 <Text className="text-white text-base">Pending visits:</Text>
-                <Text className="text-white text-base">3</Text>
+                <Text className="text-white text-base">0</Text>
               </View>
             </View>
           </View>

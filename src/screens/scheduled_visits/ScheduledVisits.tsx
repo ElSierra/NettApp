@@ -16,11 +16,23 @@ import MondaySchedule from "./week_days/MondaySchedule";
 import WednesdaySchedule from "./week_days/WednesdaySchedule";
 import ThursdaySchedule from "./week_days/ThursdaySchedule";
 import FridaySchedule from "./week_days/FridaySchedule";
+import { useModal } from "../../context/modal/ModalContext";
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function ScheduledVisits() {
   const { isDarkMode } = useTheme();
+  const { showModalAndContent } = useModal();
+
+  function handleAddVisit() {
+    showModalAndContent({
+      title: "Add Visit",
+      message: "",
+      action: "AddVisit",
+      actionBtnText: "",
+      param: true,
+    });
+  }
 
   return (
     <SafeAreaView className="flex-1 bg-white dark:bg-darkTheme">
@@ -34,7 +46,10 @@ export default function ScheduledVisits() {
       </View>
 
       <View className="flex justify-end items-end mt-4 mr-3">
-        <TouchableOpacity className="bg-secondary p-3 rounded-lg">
+        <TouchableOpacity
+          onPress={handleAddVisit}
+          className="bg-secondary p-3 rounded-lg"
+        >
           <View className="flex-row items-center justify-center gap-1">
             <Text className="text-white font-bold text-[16px]">Add Visit</Text>
             <AntDesign name="plus" size={18} color="white" />

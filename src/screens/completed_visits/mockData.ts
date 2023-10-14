@@ -19,10 +19,6 @@ export const weekDays = [
     day: "Friday",
     shortForm: "Fri",
   },
-  {
-    day: "Saturday",
-    shortForm: "Sat",
-  },
 ];
 
 export const visits = [

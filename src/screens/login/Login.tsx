@@ -57,11 +57,16 @@ export default function Login() {
             routes: [{ name: "TabStack" }],
           })
         );
+        showAlertAndContent({
+          type: "success",
+          message: `Welcome, ${email}`,
+          timeout: 2000,
+        });
       } else {
         setLoading(false);
         return showAlertAndContent({
           type: "error",
-          message: "Login failed. Ensure your credentials are correct",
+          message: "Login failed. Ensure your Login Credentials are correct",
         });
       }
     } catch (error) {
