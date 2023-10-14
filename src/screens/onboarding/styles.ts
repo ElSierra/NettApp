@@ -3,7 +3,6 @@ const { width } = Dimensions.get("window");
 
 export const styles = StyleSheet.create({
   title: {
-    fontFamily: "OSRSemiB",
     color: "#FFF",
     fontWeight: "700",
     fontSize: 30,

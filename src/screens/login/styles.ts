@@ -8,6 +8,5 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderBottomWidth: 0,
     borderColor: "#CCCCCC",
-    fontFamily: "OSReg",
   },
 });

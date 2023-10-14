@@ -11,9 +11,12 @@ import { RootStackParamList } from "../../types/navigation";
 import { routes } from "./routes";
 import { generateIcon } from "../../helpers/generate.icon";
 import Header from "../../components/header/Header";
+import { useAuth } from "../../context/auth/AuthContext";
 
 export default function Home() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const { state } = useAuth();
+  console.log(state.user);
 
   async function handleNavigation(route: string) {
     switch (route) {

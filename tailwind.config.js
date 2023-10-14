@@ -26,12 +26,6 @@ module.exports = {
         warningText: "#f0f078",
         infoText: "#5151ff",
       },
-      fontFamily: {
-        OSReg: ["OpenSans-Regular"],
-        OSBold: ["OpenSans-Bold"],
-        OSRSemiB: ["OpenSans-SemiBold"],
-        OSLight: ["OpenSans-Light"],
-      },
     },
   },
   plugins: [],

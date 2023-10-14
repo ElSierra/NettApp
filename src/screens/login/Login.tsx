@@ -20,6 +20,10 @@ import {
 import { httpRequest } from "../../lib";
 import { useTheme } from "../../context/theme/ThemeContext";
 import { COLORS } from "../../common/colors";
+import Toast from "react-native-toast-message";
+import { useAlert } from "../../context/alert/AlertContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuth } from "../../context/auth/AuthContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -28,23 +32,38 @@ export default function Login() {
   const [hidePassword, setHidePassword] = useState(true);
   const navigation = useNavigation<NavigationProp<any>>();
   const { isDarkMode } = useTheme();
+  const { showAlertAndContent } = useAlert();
+  const { setActiveUser } = useAuth();
 
   async function LoginUser() {
+    if (!email || !password) {
+      return showAlertAndContent({
+        type: "error",
+        message: "Please provide both Email and Password",
+      });
+    }
     try {
       setLoading(true);
       const dbResponse = await httpRequest.post("/login", {
         identity: email,
         password,
       });
-      // console.log({ dbResponse });
-      if (dbResponse.status === 200) {
+
+      if (dbResponse.data.status === 200) {
         setLoading(false);
+        await setActiveUser(dbResponse.data.userCode);
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
             routes: [{ name: "TabStack" }],
           })
         );
+      } else {
+        setLoading(false);
+        return showAlertAndContent({
+          type: "error",
+          message: "Login failed. Ensure your credentials are correct",
+        });
       }
     } catch (error) {
       console.log(error);
@@ -131,15 +150,15 @@ export default function Login() {
               <View className="mt-10">
                 <CustomButton
                   variant="large"
-                  clickHandler={() => navigation.navigate("TabStack")}
                   // clickHandler={loading ? () => {} : LoginUser}
+                  clickHandler={() => navigation.navigate("TabStack")}
+                  classnames="flex items-center justify-center"
                 >
-                  {/* {loading ? (
+                  {loading ? (
                     <ActivityIndicator color={"#fff"} size="small" />
                   ) : (
                     "Login"
-                  )} */}
-                  Login
+                  )}
                 </CustomButton>
               </View>
 
