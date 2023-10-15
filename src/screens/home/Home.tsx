@@ -4,8 +4,8 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  FlatList,
 } from "react-native";
-
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../types/navigation";
 import { routes } from "./routes";
@@ -18,20 +18,23 @@ import {
 } from "../../helpers/local.data.handler";
 import { useEffect, useState } from "react";
 import { Outlet } from "../../types/outlets";
-import { getUserNetworkStatus } from "../../helpers/get.network.status";
 import { showLogs } from "../../helpers/logger";
 import { httpRequest } from "../../lib";
+import { RefreshControl } from "react-native-gesture-handler";
+import { COLORS } from "../../common/colors";
+import { useTheme } from "../../context/theme/ThemeContext";
 
 export default function Home() {
+  const [userOutlets, setUserOutlets] = useState<Outlet[]>([]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { state } = useAuth();
-  const [userOutlets, setUserOutlets] = useState<Outlet[]>([]);
+  const { refresh, setRefresh } = useTheme();
 
-  useEffect(() => {
-    async function getUserOutlets() {
-      const userIsOnline = (await getUserNetworkStatus()).isInternetReachable;
+  async function getUserOutlets() {
+    try {
       const localData = await getLocalData("UserOutlets");
-      if (userIsOnline && localData) {
+
+      if (localData) {
         setUserOutlets(localData);
         showLogs("DATA IS FROM LOCAL DB", "");
       } else {
@@ -41,14 +44,24 @@ export default function Home() {
 
         setUserOutlets(dbResponse.data);
         showLogs("DATA IS FROM API", "");
+
         if (!localData) {
           await saveDataLocally("UserOutlets", dbResponse.data);
         }
       }
+    } catch (error) {
+      console.error("Error fetching outlets:", error);
     }
+  }
 
+  useEffect(() => {
     getUserOutlets();
-  }, []);
+  }, [refresh]);
+
+  function handleRefresh() {
+    setRefresh(true);
+    setTimeout(() => setRefresh(false), 3000);
+  }
 
   async function handleNavigation(route: string) {
     switch (route) {
@@ -75,7 +88,17 @@ export default function Home() {
 
   return (
     <SafeAreaView className="flex-1 bg-white dark:bg-darkTheme">
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={refresh}
+            onRefresh={handleRefresh}
+            progressBackgroundColor={COLORS.secondary}
+            tintColor={COLORS.secondary}
+          />
+        }
+      >
         {/* HEADER */}
         <Header />
         <View className="mx-4">
@@ -88,7 +111,7 @@ export default function Home() {
                   Registered outlets:
                 </Text>
                 <Text className="text-white text-base">
-                  {userOutlets.length || "..."}
+                  {userOutlets?.length ?? "..."}
                 </Text>
               </View>
               <View className="flex-row justify-between items-center mb-3">
@@ -108,19 +131,24 @@ export default function Home() {
 
           {/* NAVIGATIONS */}
           <View className="mt-6 mb-16">
-            {routes.map((route) => (
-              <TouchableOpacity
-                activeOpacity={0.5}
-                onPress={() => handleNavigation(route)}
-                key={route}
-                className="flex-row justify-start items-center border border-secondary dark:border-primaryLight rounded-lg mb-2 p-2"
-              >
-                {generateIcon(route)}
-                <Text className="text-[15px] font-semibold text-darkNeutral dark:text-lightText">
-                  {route}
-                </Text>
-              </TouchableOpacity>
-            ))}
+            <FlatList
+              keyExtractor={(route) => route}
+              data={routes}
+              scrollEnabled={false}
+              renderItem={({ item: route }) => (
+                <TouchableOpacity
+                  activeOpacity={0.5}
+                  onPress={() => handleNavigation(route)}
+                  key={route}
+                  className="flex-row justify-start items-center border border-secondary dark:border-primaryLight rounded-lg mb-2 p-2"
+                >
+                  {generateIcon(route)}
+                  <Text className="text-[15px] font-semibold text-darkNeutral dark:text-lightText">
+                    {route}
+                  </Text>
+                </TouchableOpacity>
+              )}
+            />
           </View>
         </View>
       </ScrollView>

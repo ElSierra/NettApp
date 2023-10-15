@@ -16,22 +16,21 @@ import {
 import { RootStackParamList } from "../../types/navigation";
 import { COLORS } from "../../common/colors";
 import { useTheme } from "../../context/theme/ThemeContext";
-import { useAuth } from "../../context/auth/AuthContext";
 import { useModal } from "../../context/modal/ModalContext";
 
 export default function Header() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { isDarkMode } = useTheme();
-  const { removeActiveUser } = useAuth();
+
   const { showModalAndContent } = useModal();
 
-  async function logoutUser() {
+  function handleLogout() {
     showModalAndContent({
       title: "Log Out",
       message: "Do you want to Log out of your account?",
       action: "LogOut",
       actionBtnText: "Yes",
-      param: undefined,
+      param: "none",
     });
   }
 
@@ -44,7 +43,7 @@ export default function Header() {
       >
         <LogoSVG width={"50%"} height={70} />
 
-        <TouchableOpacity onPress={logoutUser}>
+        <TouchableOpacity onPress={handleLogout}>
           <MaterialIcons
             name="logout"
             size={28}

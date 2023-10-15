@@ -12,7 +12,8 @@ import { Controller, useForm } from "react-hook-form";
 import { CompetitonReview } from "../../types/general";
 import Header from "../../components/header/Header";
 import { COLORS } from "../../common/colors";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, Feather } from "@expo/vector-icons";
+
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useTheme } from "../../context/theme/ThemeContext";
 import CustomButton from "../../common/button";
@@ -52,12 +53,12 @@ export default function CompetitionReview() {
       <Header />
 
       <ScrollView showsVerticalScrollIndicator={false} className="mx-3">
-        <View className="border border-gray-300 dark:border-authDark p-4 rounded-lg">
-          <View className="border-b-4 border-b-[#D9D9D9] dark:border-authDark relative mb-3">
-            <Text className="text-2xl text-secondary dark:text-secondaryLight text-center font-bold mb-1">
+        <View className="border border-gray-300 dark:border-authDark p-4 rounded-lg mb-14">
+          <View className="border-b-4 border-b-[#D9D9D9] dark:border-gray-800 relative mb-3">
+            <Text className="text-2xl text-secondary text-center font-bold mb-1">
               Competition Review
             </Text>
-            <View className="absolute bg-secondary border-2 w-48 border-secondary dark:border-secondaryLight top-8 left-[68px]" />
+            <View className="absolute bg-secondary border-2 w-48 border-secondary top-8 left-[68px]" />
           </View>
 
           <View>
@@ -263,6 +264,22 @@ export default function CompetitionReview() {
             {errors.activation && (
               <Text className="text-red-600 mt-1">This field is required.</Text>
             )}
+
+            <View className="mt-4">
+              <TouchableOpacity
+                activeOpacity={0.5}
+                className="px-5 py-16 bg-gray-100 dark:bg-darkNeutral border border-dashed border-secondary dark:border-primary rounded-lg flex-row justify-center items-center"
+              >
+                <Feather
+                  name="image"
+                  size={30}
+                  color={isDarkMode ? COLORS.primary : COLORS.secondary}
+                />
+                <Text className="text-xl text-center ml-2 text-secondary dark:text-primary">
+                  Click to Add an image
+                </Text>
+              </TouchableOpacity>
+            </View>
 
             <CustomButton
               variant="large"

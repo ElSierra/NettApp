@@ -5,6 +5,8 @@ export type ThemeContextType = {
   isDarkMode: boolean;
   setIsDarkMode: Dispatch<SetStateAction<boolean>>;
   toggleColorScheme: () => void;
+  refresh: boolean;
+  setRefresh: Dispatch<SetStateAction<boolean>>;
 };
 
 export type ThemeProviderProps = {

@@ -1,6 +1,5 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import Onboarding from "react-native-onboarding-swiper";
-
 import {
   CommonActions,
   NavigationProp,
@@ -10,8 +9,7 @@ import { RootStackParamList } from "../../types/navigation";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useRef } from "react";
 import { COLORS } from "../../common/colors";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import AnimatedLottieView from "lottie-react-native";
+import LottieView from "lottie-react-native";
 import { styles } from "./styles";
 
 export default function OnboardingScreen() {
@@ -104,8 +102,9 @@ export default function OnboardingScreen() {
           backgroundColor: COLORS.primary,
           image: (
             <View style={styles.lottieWrapper}>
-              <AnimatedLottieView
+              <LottieView
                 source={require("../../assets/animations/welcome.json")}
+                loop
               />
             </View>
           ),
@@ -117,7 +116,7 @@ export default function OnboardingScreen() {
           backgroundColor: COLORS.secondary,
           image: (
             <View style={styles.lottieWrapper}>
-              <AnimatedLottieView
+              <LottieView
                 source={require("../../assets/animations/register.json")}
               />
             </View>
@@ -130,8 +129,9 @@ export default function OnboardingScreen() {
           backgroundColor: "#121825",
           image: (
             <View style={styles.lottieWrapper}>
-              <AnimatedLottieView
+              <LottieView
                 source={require("../../assets/animations/schedule.json")}
+                loop
               />
             </View>
           ),

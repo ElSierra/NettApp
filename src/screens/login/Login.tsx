@@ -57,11 +57,12 @@ export default function Login() {
             routes: [{ name: "TabStack" }],
           })
         );
-        showAlertAndContent({
-          type: "success",
-          message: `Welcome, ${email}`,
-          timeout: 2000,
-        });
+
+        Platform.OS === "ios" &&
+          showAlertAndContent({
+            type: "success",
+            message: `Welcome, ${email}`,
+          });
       } else {
         setLoading(false);
         return showAlertAndContent({

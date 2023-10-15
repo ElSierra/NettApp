@@ -68,15 +68,14 @@ export default function Modal() {
       type: "success",
       message: "Your Data has been Synced Successfully!",
     });
+    navigation.navigate("Home");
     setCurrRoute("Home");
     closeModal();
   }
 
-  console.log({ param });
-
   return (
     <>
-      {showModal && param === undefined ? (
+      {showModal && param === "none" ? (
         <View style={styles.container}>
           <TouchableOpacity
             style={styles.overlay}
@@ -91,7 +90,7 @@ export default function Modal() {
             }
           />
           <View style={[styles.alertBox, { minWidth: width - 50 }]}>
-            <View className="bg-secondary p-6 rounded-tl-[14px] rounded-tr-[14px]">
+            <View className="bg-secondary dark:bg-primary p-6 rounded-tl-[14px] rounded-tr-[14px]">
               <Text className="text-lightText text-center text-[19px] font-bold">
                 {title}
               </Text>
@@ -101,17 +100,12 @@ export default function Modal() {
             </View>
             <View className="bg-white p-4 rounded-bl-[14px] rounded-br-[14px]">
               <TouchableOpacity onPress={handleModalAction}>
-                <Text className="text-secondary text-center font-bold mb-3 text-base">
+                <Text className="text-secondary dark:text-primary text-center font-bold mb-3 text-base">
                   Yes
                 </Text>
               </TouchableOpacity>
               <Divider />
-              <TouchableOpacity
-                onPress={() => {
-                  closeModal();
-                  currrRoute === "Sync" && setCurrRoute("Home");
-                }}
-              >
+              <TouchableOpacity onPress={closeModal}>
                 <Text className="text-red-600 text-center font-bold mt-3 text-base">
                   No
                 </Text>

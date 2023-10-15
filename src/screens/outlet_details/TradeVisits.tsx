@@ -25,7 +25,7 @@ export default function TradeVisits({
             }}
           >
             <AnimatedLottie
-              source={require("../../assets/animations/register.json")}
+              source={require("../../assets/animations/norecord.json")}
             />
           </View>
           <Text className="text-center text-base font-semibold text-darkNeutral dark:text-lightText">

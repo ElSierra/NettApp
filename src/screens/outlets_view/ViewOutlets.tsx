@@ -78,7 +78,7 @@ export default function ViewOutlets() {
             </View>
           </View>
 
-          <View className=" mt-6">
+          <View className="mt-6 mb-16">
             {/* TABLE HEADER */}
             <Text className="text-darkNeutral dark:text-lightText mb-3 mx-3 text-base font-semibold">
               Total Outlets:{" "}
@@ -121,7 +121,10 @@ export default function ViewOutlets() {
                         : outlet.name}
                     </Text>
                     <Text className="ml-auto text-darkNeutral dark:text-lightText">
-                      {new Date(outlet.lastvisit).toDateString()}
+                      {new Date(outlet.lastvisit).toDateString() ===
+                      "Invalid Date"
+                        ? "-"
+                        : new Date(outlet.lastvisit).toDateString()}
                     </Text>
                   </TouchableOpacity>
                 )}

@@ -41,7 +41,7 @@ export default function TabsNavigator() {
               <Ionicons
                 name="sync-outline"
                 size={size + 10}
-                color={isDarkMode ? "white" : COLORS.dark}
+                color={focused ? COLORS.primary : colorToUse}
                 style={styles.tabBarIcon}
               />
             );
@@ -86,14 +86,15 @@ export default function TabsNavigator() {
       screenListeners={({ route }) => ({
         tabPress: () => {
           setCurrRoute(route.name);
-          if (route.name === "Sync") {
-            showModalAndContent({
-              title: "Sync Data",
-              message: "Do you want to Sync your Data?",
-              action: "SyncData",
-              actionBtnText: "Yes",
-            });
-          }
+          // if (route.name === "Sync") {
+          //   showModalAndContent({
+          //     title: "Sync Data",
+          //     message: "Do you want to Sync your Data?",
+          //     action: "SyncData",
+          //     actionBtnText: "Yes",
+          //     param: "none",
+          //   });
+          // }
         },
       })}
     >
@@ -115,7 +116,7 @@ export default function TabsNavigator() {
 
       <TabStack.Screen
         name="Sync"
-        component={HomeScreen}
+        component={Sync}
         options={{
           headerShown: false,
           tabBarItemStyle:
@@ -125,12 +126,6 @@ export default function TabsNavigator() {
                   borderColor: COLORS.primary,
                 }
               : {},
-          tabBarLabelStyle: [
-            styles.label,
-            {
-              color: isDarkMode ? COLORS.lightText : COLORS.dark,
-            },
-          ],
         }}
       />
 
@@ -155,7 +150,7 @@ export default function TabsNavigator() {
 
 const styles = StyleSheet.create({
   tabBarIcon: {
-    fontSize: Platform.OS === "ios" ? 22 : 25,
+    fontSize: 22,
     paddingTop: Platform.OS === "ios" ? 5 : 0,
   },
   tabBarIconSec: {
@@ -164,6 +159,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: "600",
+    marginBottom: Platform.OS === "android" ? 8 : 0,
   },
   tabBarIconFocused: {
     borderTopWidth: 1,

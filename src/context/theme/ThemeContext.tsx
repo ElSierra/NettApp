@@ -19,6 +19,7 @@ export function useTheme() {
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const { colorScheme, toggleColorScheme } = useColorScheme();
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     async function checkTheme() {
@@ -43,6 +44,8 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     isDarkMode,
     setIsDarkMode,
     toggleColorScheme,
+    refresh,
+    setRefresh,
   };
 
   return (

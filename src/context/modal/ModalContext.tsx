@@ -11,7 +11,7 @@ export function ModalProvider({ children }: ModalProviderProps) {
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
-  const [param, setParam] = useState<boolean | undefined>(undefined);
+  const [param, setParam] = useState<undefined | string>(undefined);
   const [actionBtnText, setActionBtnText] = useState("");
   const [action, setAction] = useState("");
 

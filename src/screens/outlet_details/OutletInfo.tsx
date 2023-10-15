@@ -73,7 +73,7 @@ export default function OutletInfo({ outlet }: { outlet: Outlet | undefined }) {
               Sub-Channel
             </Text>
             <Text className="w-40 text-right text-[15px] text-darkNeutral dark:text-lightText">
-              {outlet?.subChannel || "-"}
+              {outlet?.subchannel || "-"}
             </Text>
           </View>
 

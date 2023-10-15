@@ -49,11 +49,10 @@ export default function ReusableModal() {
         return null;
     }
   }
-  console.log({ title });
 
   return (
     <>
-      {showModal && param ? (
+      {showModal && param === "true" ? (
         <View style={styles.container}>
           <TouchableOpacity
             style={styles.overlay}
@@ -68,23 +67,26 @@ export default function ReusableModal() {
             }
           />
           <View
-            style={[styles.alertBox, { maxWidth: width - 50 }]}
+            style={[styles.alertBox, { width: width - 50 }]}
             className="bg-white dark:bg-darkNeutral"
           >
             {title === "Add Visit" && <AddNewVisit />}
 
-            <View className="flex-row justify-center items-center pt-3">
+            {/* <View className="flex-row justify-center items-center pt-3">
               <TouchableOpacity
-                onPress={loading ? () => {} : closeModal}
+                onPress={() => {
+                  closeModal();
+                  setParam("none");
+                }}
                 className="border border-1 border-lightGray mr-3 rounded-md bg-grayNeutral"
               >
                 <Text className="py-2 px-10 text-center text-base font-semibold dark:font-bold text-rose-500">
-                  CLOSE
+                  {action === "AddVisit" ? "CANCEL" : "CLOSE"}
                 </Text>
               </TouchableOpacity>
 
               {loading ? (
-                <View className="border border-1 border-primaryColor bg-primaryColor  dark:border-primaryColorTheme dark:bg-primaryColorTheme mr-3 rounded-md">
+                <View className="border border-1 border-primaryColor bg-primaryColor dark:border-primaryColorTheme dark:bg-primaryColorTheme mr-3 rounded-md">
                   <View className="py-2 px-14 justify-center items-center text-center text-base font-semibold  dark:font-bold">
                     <ActivityIndicator size="small" color={"#fff"} />
                   </View>
@@ -94,15 +96,12 @@ export default function ReusableModal() {
                   onPress={handleModalAction}
                   className="border border-1 border-primaryColor bg-primaryColor dark:bg-primaryColorTheme dark:border-primaryColorTheme mr-3 rounded-md"
                 >
-                  <Text
-                    style={{ color: "#FFF" }}
-                    className="py-2 px-10 text-center text-base font-semibold dark:font-bold"
-                  >
+                  <Text className="py-2 px-10 text-center text-base font-semibold dark:font-bold text-secondary uppercase">
                     {actionBtnText}
                   </Text>
                 </TouchableOpacity>
               )}
-            </View>
+            </View> */}
           </View>
         </View>
       ) : null}

@@ -17,20 +17,55 @@ import WednesdaySchedule from "./week_days/WednesdaySchedule";
 import ThursdaySchedule from "./week_days/ThursdaySchedule";
 import FridaySchedule from "./week_days/FridaySchedule";
 import { useModal } from "../../context/modal/ModalContext";
+import { useEffect, useState } from "react";
+import { useAuth } from "../../context/auth/AuthContext";
+import {
+  getLocalData,
+  saveDataLocally,
+} from "../../helpers/local.data.handler";
+import { showLogs } from "../../helpers/logger";
+import { httpRequest } from "../../lib";
 
 const Tab = createMaterialTopTabNavigator();
 
 export default function ScheduledVisits() {
   const { isDarkMode } = useTheme();
   const { showModalAndContent } = useModal();
+  const [userOutlets, setUserOutlets] = useState([]);
+  const { state } = useAuth();
+  const { refresh, setRefresh } = useTheme();
+  let localData;
+
+  useEffect(() => {
+    async function getUserOutlets() {
+      // const userIsOnline = (await getUserNetworkStatus()).isInternetReachable;
+      localData = await getLocalData("UserSchedule");
+      if (localData) {
+        setUserOutlets(localData);
+        // showLogs("DATA IS FROM LOCAL DB (Schedules)", localData);
+      } else {
+        const dbResponse = await httpRequest.post("/getSchedules", {
+          userCode: state.user,
+        });
+
+        setUserOutlets(dbResponse.data);
+        showLogs("DATA IS FROM API", "");
+        if (!localData) {
+          await saveDataLocally("UserSchedule", dbResponse.data);
+        }
+      }
+    }
+
+    getUserOutlets();
+  }, [localData, refresh]);
 
   function handleAddVisit() {
     showModalAndContent({
       title: "Add Visit",
       message: "",
       action: "AddVisit",
-      actionBtnText: "",
-      param: true,
+      actionBtnText: "Save",
+      param: "true",
     });
   }
 
@@ -38,11 +73,11 @@ export default function ScheduledVisits() {
     <SafeAreaView className="flex-1 bg-white dark:bg-darkTheme">
       <Header />
 
-      <View className="border-b-4 border-b-[#D9D9D9] dark:border-authDark relative mb-3 mx-3">
-        <Text className="text-2xl text-secondary dark:text-secondaryLight text-center font-bold mb-1">
+      <View className="border-b-4 border-b-[#D9D9D9] dark:border-gray-800 relative mb-3 mx-3">
+        <Text className="text-2xl text-secondary text-center font-bold mb-1">
           Scheduled Outlets
         </Text>
-        <View className="absolute bg-secondary border-2 w-48 border-secondary dark:border-secondaryLight top-8 left-[68px]" />
+        <View className="absolute bg-secondary border-2 w-48 border-secondary top-8 left-[68px]" />
       </View>
 
       <View className="flex justify-end items-end mt-4 mr-3">
@@ -66,6 +101,7 @@ export default function ScheduledVisits() {
             backgroundColor: isDarkMode ? COLORS.darkTheme : "#fff",
             marginHorizontal: 10,
             paddingTop: 40,
+            shadowColor: isDarkMode ? COLORS.darkNeutral : "white",
           },
           tabBarLabelStyle: {
             fontWeight: "bold",

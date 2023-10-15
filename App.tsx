@@ -14,13 +14,14 @@ import Alert from "./src/components/alert/Alert";
 import { ModalProvider } from "./src/context/modal/ModalContext";
 import LogoutModal from "./src/components/modals/Modal";
 import ReusableModal from "./src/components/modals/ReusableModal";
+import { COLORS } from "./src/common/colors";
 
 export default function App() {
   const theme = {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      primary: "#020257",
+      primary: COLORS.primary,
       secondary: "#B18D21E5",
     },
   };
